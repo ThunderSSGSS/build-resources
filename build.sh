@@ -1,9 +1,10 @@
 #!/bin/bash
 
 export DOCKERFILE_DIR="${DOCKERFILE_DIR:-'.'}"
-export VERSION="$(./version.sh)"
+export VERSION="$(bash ./version.sh)"
 
 cd $DOCKERFILE_DIR
+
 echo "$DOT_ENV" > .env
 
 if [ "$IMAGE_TYPE" = "prod" ]; then 
