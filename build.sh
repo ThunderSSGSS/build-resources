@@ -1,14 +1,15 @@
 #!/bin/bash
 
-if [ ! $2 ]; then
+if [ ! $3 ]; then
   echo "ERROR: This command needs arguments
-Example: $0 <prod_branch> <actual_branch>
+Example: $0 <prod_branch> <actual_branch> <docker_repo>
 "
     exit 1;
 fi
 
 export PROD_BRANCH="$1"
 export ACTUAL_BRANCH="$2"
+export DOCKER_USERNAME="$3"
 export DOCKERFILE_DIR="${DOCKERFILE_DIR:-'.'}"
 export VERSION="$(bash ./version.sh)"
 
@@ -23,6 +24,7 @@ else
 fi
 
 docker build -t ${DOCKER_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG_PREFIX}${VERSION}-${ACTUAL_BRANCH} .
+echo "IMAGE_FULL_NAME=${DOCKER_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG_PREFIX}${VERSION}-${ACTUAL_BRANCH}" >> build.env
 echo "IMAGE_REPOSITORY=${DOCKER_USERNAME}/${IMAGE_NAME}" >> build.env
 echo "IMAGE_TAG=${IMAGE_TAG_PREFIX}${VERSION}-${ACTUAL_BRANCH}" >> build.env
 echo "ID=${RANDOM}" >> build.env
