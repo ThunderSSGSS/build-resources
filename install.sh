@@ -13,6 +13,9 @@ curl -O $SITE_URL/deploy.sh
 log "Download version script"
 curl -O $SITE_URL/version.sh
 
+log "Download push script"
+curl -O $SITE_URL/push.sh
+
 log "Download version script"
 curl -O $SITE_URL/version.sh
 curl -O $SITE_URL/version.py
